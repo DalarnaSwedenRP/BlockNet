@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skapa Hemsida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .bg-create {
+            background: linear-gradient(to bottom, #6b21a8, #d946ef);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
+    <!-- Header -->
+    <header class="bg-create text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-center fade-in">Skapa Hemsida</h1>
+            <p class="text-center mt-2 text-purple-100 fade-in">Bygg din egen sida i DalNet</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-12">
+        <section id="formSection" class="bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Skapa din egen hemsida</h2>
+            <p class="text-gray-600 mb-6">Fyll i formuläret nedan för att skapa en begäran. Kopiera sedan meddelandet och skicka det i formuläret här nere.</p>
+            <div class="space-y-6">
+                <div>
+                    <label for="pageName" class="block text-gray-600 mb-1 font-semibold">Namn på sidan</label>
+                    <input
+                        type="text"
+                        id="pageName"
+                        placeholder="T.ex. MinFöretagssida"
+                        class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                </div>
+                <div>
+                    <label for="language" class="block text-gray-600 mb-1 font-semibold">Vilket språk ska vara på hemsidan</label>
+                    <select
+                        id="language"
+                        class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                        <option value="" disabled selected>Välj ett språk</option>
+                        <option value="Svenska">Svenska</option>
+                        <option value="Engelska">Engelska</option>
+                        <option value="Norska">Norska</option>
+                        <option value="Danska">Danska</option>
+                        <option value="Annat">Annat</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="description" class="block text-gray-600 mb-1 font-semibold">Beskriv hela hemsidan</label>
+                    <textarea
+                        id="description"
+                        placeholder="Beskriv hur du vill att hemsidan ska se ut och fungera..."
+                        class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 h-32 resize-none"
+                    ></textarea>
+                </div>
+                <button
+                    id="submitButton"
+                    class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition"
+                >
+                    Generera meddelande.
+                </button>
+                <p id="formError" class="text-red-500 text-center hidden">Vänligen fyll i alla fält</p>
+            </div>
+        </section>
+
+        <section id="messageSection" class="bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Meddelande till formulär</h2>
+            <p class="text-gray-600 mb-4">Kopiera texten nedan och skicka den till formuläret på sidan:</p>
+            <div class="relative">
+                <textarea
+                    id="messageOutput"
+                    readonly
+                    class="w-full p-3 rounded-lg border border-gray-300 bg-gray-50 text-gray-700 h-40 resize-none"
+                ></textarea>
+                <button
+                    id="copyButton"
+                    class="absolute top-2 right-2 bg-purple-600 text-white py-1 px-3 rounded-lg hover:bg-purple-700 transition"
+                >
+                    Kopiera
+                </button>
+            </div>
+            <p class="text-gray-500 text-sm mt-2">Skicka detta till formuläret via denna hemsida.</p>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Om Skapa Hemsida</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Med Skapa Hemsida kan du designa din egen plats i DalNet. Beskriv vad du vill ha för hemsida och då hjälper vi dig att skapa en unik hemsida som passar din roll i spelet!
+            </p>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Kontakt</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Har du frågor?<br>
+                <strong>Support:</strong> Kontakta oss här på hemsidan
+            </p>
+        </section>
+
+        <div class="text-center">
+            <a href="index.html" class="inline-block bg-purple-600 text-white py-3 px-6 rounded-full hover:bg-purple-700 transition fade-in">Tillbaka till startsidan</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 Skapa Hemsida.</p>
+        </div>
+    </footer>
+
+    <script>
+        const submitButton = document.getElementById('submitButton');
+        const pageNameInput = document.getElementById('pageName');
+        const languageSelect = document.getElementById('language');
+        const descriptionInput = document.getElementById('description');
+        const formError = document.getElementById('formError');
+        const messageSection = document.getElementById('messageSection');
+        const messageOutput = document.getElementById('messageOutput');
+        const copyButton = document.getElementById('copyButton');
+
+        submitButton.addEventListener('click', () => {
+            const pageName = pageNameInput.value.trim();
+            const language = languageSelect.value;
+            const description = descriptionInput.value.trim();
+
+            if (pageName && language && description) {
+                formError.classList.add('hidden');
+                messageSection.classList.remove('hidden');
+
+                // Generate message
+                const timestamp = new Date().toLocaleString('sv-SE', { timeZone: 'Europe/Stockholm' });
+                const message = `Hej,\nJag vill skapa en ny hemsida för DalNet RP!\n\nNamn på sidan: ${pageName}\nSpråk: ${language}\nBeskrivning: ${description}\n\nSkickat: ${timestamp}`;
+                messageOutput.value = message;
+
+                // Clear form
+                pageNameInput.value = '';
+                languageSelect.value = '';
+                descriptionInput.value = '';
+            } else {
+                formError.classList.remove('hidden');
+                messageSection.classList.add('hidden');
+            }
+        });
+
+        copyButton.addEventListener('click', () => {
+            messageOutput.select();
+            document.execCommand('copy');
+            copyButton.textContent = 'Kopierat!';
+            setTimeout(() => {
+                copyButton.textContent = 'Kopiera';
+            }, 2000);
+        });
+    </script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68b08e549c3d8419228d989b/1j3oqnupr';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script--
+</body>
+</html>

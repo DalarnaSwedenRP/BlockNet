@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemsidan under utveckling</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        .hover-scale { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-scale:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .bg-mail { background: linear-gradient(to bottom, #1e40af, #60a5fa); }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
+    <header class="bg-mail text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-center fade-in">
+                Hemsidan under utveckling
+            </h1>
+            <p class="text-center mt-2 text-blue-100 fade-in">
+                Vi jobbar på att få allt klart – kom tillbaka snart!
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <section class="bg-white rounded-xl shadow-lg p-8 hover-scale fade-in text-center max-w-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">🚧 Under konstruktion 🚧</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Tack för ditt tålamod! Den här sidan håller på att utvecklas och kommer snart att vara tillgänglig.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 WindMail</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polisen.se</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .bg-police {
+            background: linear-gradient(to bottom, #1e3a8a, #3b82f6);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
+    <!-- Banner -->
+    <header class="bg-police text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-center fade-in">Polisen.se</h1>
+            <p class="text-center mt-2 text-blue-100 fade-in">Din trygghet i hela Sverige</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-blue-800 text-white p-4">
+        <div class="max-w-7xl mx-auto flex justify-center space-x-6">
+            <a onclick="showSection('home')" class="hover:text-blue-200 cursor-pointer">Startsida</a>
+            <a onclick="showSection('tips')" class="hover:text-blue-200 cursor-pointer">Tipsa polisen</a>
+            <a onclick="showSection('faq')" class="hover:text-blue-200 cursor-pointer">Vanliga frågor</a>
+            <a onclick="showSection('login')" class="hover:text-blue-200 cursor-pointer">Intern sida</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-12">
+        <section id="home" class="bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Välkommen till Polisen.se</h2>
+            <p class="text-gray-600 leading-relaxed">Här hittar du information från polisen.</p>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">Information till allmänheten</h3>
+            <p class="text-gray-600 leading-relaxed">Polisen arbetar för ett tryggare samhälle. Rapportera brott via 114 14 eller i nödfall 112.</p>
+            
+            <div id="search-bar" class="mt-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Sök på sidan</h3>
+                <input type="text" id="search-input" placeholder="Sök..." class="w-full p-2 border rounded-lg">
+                <button onclick="searchSite()" class="mt-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Sök</button>
+                <p id="search-result" class="text-gray-600 mt-2"></p>
+            </div>
+        </section>
+
+        <section id="tips" class="hidden bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Tipsa polisen</h2>
+            <p class="text-gray-600 leading-relaxed">Använd formuläret nedan för att skicka tips.</p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfW71xg8G1jz0QxtaKSWixOr57WH5WTaKjS9HLI-sP3364VA/viewform?embedded=true" width="640" height="677" frameborder="0" marginheight="0" marginwidth="0">Läser in…</iframe>
+            <p id="tips-message" class="text-gray-600 mt-2"></p>
+        </section>
+
+        <section id="faq" class="hidden bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Vanliga frågor (FAQ)</h2>
+            <ul class="text-gray-600 list-disc list-inside leading-relaxed">
+                <li><strong>Hur rapporterar jag ett brott?</strong> Ring 114 14 eller besök en polisstation.</li>
+                <li><strong>Vad gör jag i en nödsituation?</strong> Ring 112 omedelbart.</li>
+                <li><strong>Hur ansöker jag om pass?</strong> Boka tid via vår webbplats.</li>
+            </ul>
+        </section>
+
+        <section id="login" class="hidden bg-white rounded-xl shadow-lg p-8 mb-8 hover-scale fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Intern sida för anställda</h2>
+            <p class="text-gray-600 leading-relaxed">Logga in med dina uppgifter (t.ex. Adrian Munter, Kod: 1379 eller Benjamin Munter, Kod: 1234).</p>
+            <div id="login-form" class="space-y-4">
+                <input type="text" id="username" placeholder="Användarnamn" class="w-full p-2 border rounded-lg" required>
+                <input type="password" id="password" placeholder="Lösenord" class="w-full p-2 border rounded-lg" required>
+                <button type="button" onclick="login()" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Logga in</button>
+            </div>
+            <div id="internal-content" class="hidden mt-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Välkommen, anställd!</h3>
+                <p class="text-gray-600 leading-relaxed">Intern information: Aktuella ärenden, manualer, etc.</p>
+                <ul class="text-gray-600 list-disc list-inside leading-relaxed">
+                    <li>Ärende 1: Undersökning pågår.</li>
+                    <li>Manual: Hantering av tips.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-police text-white text-center p-4">
+        <p>&copy; 2025 Polisen.se</p>
+    </footer>
+
+    <!-- Tawk.to Script -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/68b08d1f3213281928263265/1j3oqehc3';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if ((username === 'Adrian Munter' && password === '1379') || 
+                (username === 'Benjamin Munter' && password === '1234')) {
+                document.getElementById('internal-content').classList.remove('hidden');
+            } else {
+                alert('Felaktiga inloggningsuppgifter.');
+            }
+        }
+
+        function searchSite() {
+            const query = document.getElementById('search-input').value;
+            document.getElementById('search-result').innerText = `Sökresultat för "${query}": Inga resultat (demo).`;
+        }
+    </script>
+</body>
+</html>
