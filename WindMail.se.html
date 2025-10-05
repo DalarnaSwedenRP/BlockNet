@@ -3,44 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hemsidan under utveckling</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>WindMail</title>
     <style>
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        /* Global styles for a super nice, modern look */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b3e5fc); /* Windy blue gradient */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
         }
-        .fade-in { animation: fadeIn 0.8s ease-out; }
-        .hover-scale { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .bg-mail { background: linear-gradient(to bottom, #1e40af, #60a5fa); }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0277bd;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, button:focus {
+            border-color: #0277bd;
+            outline: none;
+        }
+
+        button {
+            background: #0288d1;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        button:hover {
+            background: #0277bd;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Email list styles */
+        .email-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .email-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .email-item:hover {
+            background: #e3f2fd;
+            transform: translateY(-3px);
+        }
+
+        .email-subject {
+            font-weight: bold;
+            color: #01579b;
+        }
+
+        .email-from {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .email-body {
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* Inbox view */
+        #inbox-view {
+            margin-top: 20px;
+        }
+
+        #send-mail-btn {
+            margin-top: 20px;
+        }
+
+        /* Animation for wind effect */
+        @keyframes windBlow {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        h1 {
+            animation: windBlow 2s infinite ease-in-out;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin: 10px 0;
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
-    <header class="bg-mail text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 py-8">
-            <h1 class="text-4xl font-extrabold tracking-tight text-center fade-in">
-                Hemsidan under utveckling
-            </h1>
-            <p class="text-center mt-2 text-blue-100 fade-in">
-                Vi jobbar på att få allt klart – kom tillbaka snart!
-            </p>
-        </div>
-    </header>
+<body>
+    <div class="container">
+        <h1>WindMail</h1>
 
-    <main class="flex-grow flex items-center justify-center px-4 py-12">
-        <section class="bg-white rounded-xl shadow-lg p-8 hover-scale fade-in text-center max-w-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">🚧 Under konstruktion 🚧</h2>
-            <p class="text-gray-600 leading-relaxed">
-                Tack för ditt tålamod! Den här sidan håller på att utvecklas och kommer snart att vara tillgänglig.
-            </p>
-        </section>
-    </main>
-
-    <footer class="bg-gray-800 text-white py-4">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; 2025 WindMail</p>
+        <!-- Login form -->
+        <div id="login-section">
+            <input type="text" id="username" placeholder="Användarnamn">
+            <input type="password" id="password" placeholder="Lösenord">
+            <div id="error-message" class="error-message hidden"></div>
+            <button onclick="login()">Logga in</button>
         </div>
-    </footer>
+
+        <!-- Email addresses list after login -->
+        <div id="emails-section" class="hidden">
+            <h2>Dina e-postadresser</h2>
+            <ul id="email-addresses-list" class="email-list"></ul>
+        </div>
+
+        <!-- Inbox view -->
+        <div id="inbox-section" class="hidden">
+            <h2>Inbox för <span id="current-email"></span></h2>
+            <ul id="inbox-list" class="email-list"></ul>
+            <button id="send-mail-btn" onclick="sendMail()">Skicka Mail</button>
+            <button onclick="backToEmails()">Tillbaka till e-postadresser</button>
+        </div>
+
+        <!-- Email detail view -->
+        <div id="email-detail" class="hidden">
+            <h2><span id="detail-subject"></span></h2>
+            <p>Från: <span id="detail-from"></span></p>
+            <div id="detail-body" class="email-body"></div>
+            <button onclick="backToInbox()">Tillbaka till inbox</button>
+        </div>
+    </div>
+
+    <script>
+        // Test data - Här lägger du in riktiga data senare
+        const users = {
+            'testuser': {
+                password: 'testpass',
+                emails: [
+                    'test@windmail.com',
+                    'another@windmail.com'
+                ],
+                mails: {
+                    'test@windmail.com': [
+                        {
+                            subject: 'Välkommen till WindMail!',
+                            from: 'support@windmail.com',
+                            body: 'Hej! Detta är ett testmail. Välkommen till din nya e-posttjänst. Här kan du läsa och skicka mail på ett supersnyggt sätt.'
+                        }
+                    ],
+                    'another@windmail.com': [
+                        {
+                            subject: 'Testmeddelande 2',
+                            from: 'friend@example.com',
+                            body: 'Hej igen! Detta är ett annat testmail för din andra adress.'
+                        }
+                    ]
+                },
+                googleFormUrl: 'https://forms.gle/EXAMPLE_FORM_LINK'
+            },
+            'adrianmunter': {
+                password: '1379',
+                emails: [
+                    'adrianmunter@windmail.se'
+                ],
+                mails: {
+                    'adrianmunter@windmail.se': [
+                        {
+                            subject: 'Välkommen Adrian!',
+                            from: 'support@windmail.se',
+                            body: 'Hej Adrian! Detta är ett testmail för ditt konto. Välkommen till WindMail!'
+                        }
+                    ]
+                },
+                googleFormUrl: <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfVd2pwyA2f_7COm385nRxFR7xB4AFt4HDeQ28PiU_ji_VtRA/viewform?embedded=true" width="640" height="731" frameborder="0" marginheight="0" marginwidth="0">Läser in …</iframe>
+            },
+            'benjaminmunter': {
+                password: '147852',
+                emails: [
+                    'benjaminmunter@windmail.se'
+                ],
+                mails: {
+                    'benjaminmunter@windmail.se': [
+                        {
+                            subject: 'Välkommen Benjamin!',
+                            from: 'support@windmail.se',
+                            body: 'Hej Benjamin! Detta är ett testmail för ditt konto. Välkommen till WindMail!'
+                        }
+                    ]
+                },
+                googleFormUrl: 'https://forms.gle/EXAMPLE_FORM_LINK_BENJAMIN'
+            },
+            'savannakolmodin': {
+                password: '125896',
+                emails: [
+                    'savannakolmodin@windmail.se'
+                ],
+                mails: {
+                    'savannakolmodin@windmail.se': [
+                        {
+                            subject: 'Välkommen Savanna!',
+                            from: 'support@windmail.se',
+                            body: 'Hej Savanna! Detta är ett testmail för ditt konto. Välkommen till WindMail!'
+                        }
+                    ]
+                },
+                googleFormUrl: 'https://forms.gle/EXAMPLE_FORM_LINK_SAVANNA'
+            }
+        };
+
+        let currentUser = null;
+        let currentEmail = null;
+
+        function login() {
+            const usernameInput = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Gör användarnamnet okänsligt för skiftläge
+            const username = usernameInput.toLowerCase();
+
+            if (users[username] && users[username].password === password) {
+                currentUser = username;
+                errorMessage.classList.add('hidden');
+                showEmails();
+            } else {
+                errorMessage.textContent = 'Fel användarnamn eller lösenord!';
+                errorMessage.classList.remove('hidden');
+            }
+        }
+
+        function showEmails() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('emails-section').classList.remove('hidden');
+
+            const emailList = document.getElementById('email-addresses-list');
+            emailList.innerHTML = '';
+            users[currentUser].emails.forEach(email => {
+                const li = document.createElement('li');
+                li.classList.add('email-item');
+                li.textContent = email;
+                li.onclick = () => showInbox(email);
+                emailList.appendChild(li);
+            });
+        }
+
+        function showInbox(email) {
+            currentEmail = email;
+            document.getElementById('emails-section').classList.add('hidden');
+            document.getElementById('inbox-section').classList.remove('hidden');
+            document.getElementById('current-email').textContent = email;
+
+            const inboxList = document.getElementById('inbox-list');
+            inboxList.innerHTML = '';
+            if (users[currentUser].mails[email].length === 0) {
+                const li = document.createElement('li');
+                li.textContent = 'Inga mail att visa.';
+                inboxList.appendChild(li);
+            } else {
+                users[currentUser].mails[email].forEach((mail, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('email-item');
+                    li.innerHTML = `<div class="email-subject">${mail.subject}</div><div class="email-from">${mail.from}</div>`;
+                    li.onclick = () => showEmailDetail(index);
+                    inboxList.appendChild(li);
+                });
+            }
+        }
+
+        function showEmailDetail(index) {
+            const mail = users[currentUser].mails[currentEmail][index];
+            document.getElementById('inbox-section').classList.add('hidden');
+            document.getElementById('email-detail').classList.remove('hidden');
+            document.getElementById('detail-subject').textContent = mail.subject;
+            document.getElementById('detail-from').textContent = mail.from;
+            document.getElementById('detail-body').textContent = mail.body;
+        }
+
+        function backToInbox() {
+            document.getElementById('email-detail').classList.add('hidden');
+            document.getElementById('inbox-section').classList.remove('hidden');
+        }
+
+        function backToEmails() {
+            document.getElementById('inbox-section').classList.add('hidden');
+            document.getElementById('emails-section').classList.remove('hidden');
+        }
+
+        function sendMail() {
+            const formUrl = users[currentUser].googleFormUrl;
+            window.open(formUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
