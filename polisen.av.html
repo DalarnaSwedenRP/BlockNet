@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polisen i Avalon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #001f3f; /* Deep navy for a professional police theme */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+
+        nav ul li {
+            margin: 0 25px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #ffffff;
+            color: #001f3f;
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 20px 80px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #home {
+            background: linear-gradient(rgba(0, 31, 63, 0.8), rgba(0, 31, 63, 0.8)), url('https://via.placeholder.com/1920x1080?text=Avalon+Police+Hero'); /* Hero image */
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #home .container {
+            max-width: 800px;
+        }
+
+        #home h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        #home p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        #contact {
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        #report {
+            background-color: #f0f4f8;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Contact section */
+        .contact-info {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-info li {
+            background-color: #e6f2ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .contact-info li:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-info li strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #001f3f;
+        }
+
+        /* Iframe for report */
+        .report-form {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 2193px;
+            border: none;
+        }
+
+        /* Button style for potential additions */
+        .btn {
+            background-color: #001f3f;
+            color: #ffffff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #004080;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #001f3f;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                height: auto;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            #home h1 {
+                font-size: 36px;
+            }
+
+            #home p {
+                font-size: 18px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Startsida</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+            <li><a href="#report">Anmäl Brott</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="container">
+            <h1>Välkommen till Polisen i Avalon</h1>
+            <p>Polisen i Avalon skyddar staden, upprätthåller lag och ordning.</p>
+            <a href="#contact" class="btn">Kontakta oss</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Kontaktinformation</h2>
+            <p>Här hittar du alla sätt att nå oss.</p>
+            <ul class="contact-info">
+                <li><strong>Huvudstation</strong> Studentvägen 1</li>
+                <li><strong>E-post</strong> polisen@polisen.av</li>
+                <li><strong>Telefon (nödsituationer)</strong> 112</li>
+                <li><strong>Telefon (icke-akut)</strong> 11414</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="report">
+        <div class="container">
+            <h2>Anmäl Brott</h2>
+            <p>Använd formuläret nedan för att anmäla ett brott snabbt och säkert.</p>
+            <div class="report-form">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSexBMljnqL35x5pO6gyCfcs3UJn5kD9mRgHertcDu2338PgHQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Läser in…</iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Polisen i Avalon. Endast RP.</p>
+    </footer>
+
+</body>
+</html>
